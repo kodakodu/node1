@@ -42,6 +42,17 @@ app.get("/getusers",(req,res) => {
     });
 });
 
+//select single user
+app.get("/getuser/:id",(req,res) => {    
+    let sql = `SELECT * FROM users WHERE id = ${req.params.id}`;
+    let query = db.query(sql, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        //res.send("Users fetched");
+        res.send(result);
+    });
+});
+
 app.listen('3000', () => {
     console.log("Server started on port 3000");
 
