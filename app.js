@@ -1,0 +1,37 @@
+const express = require('express');
+const mysql = require('mysql');
+
+//Create connection
+const db = mysql.createConnection({
+    host: 'localhost',
+    user:'root',
+    password: 'root',
+    database:'conso_crf'
+});
+
+
+//connection
+
+db.connect((err) => {
+    if(err){
+      throw err;  
+    }
+    console.log('Mysql connected !!');
+});
+const app = express();
+
+//insert user
+app.get("/adduser1",(req,res) => {
+    let user = {firstname: 'Robert', lastname : 'Dupont'}
+    let sql = "INSERT INTO users SET ?";
+    let query = db.query(sql,user, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send("User inserted");
+    });
+});
+
+app.listen('3000', () => {
+    console.log("Server started on port 3000");
+
+});
