@@ -31,6 +31,16 @@ app.get("/adduser1",(req,res) => {
     });
 });
 
+//select users
+app.get("/getusers",(req,res) => {    
+    let sql = "SELECT * FROM users";
+    let query = db.query(sql, (err, results) => {
+        if(err) throw err;
+        console.log(results);
+        res.send("Users fetched");
+    });
+});
+
 app.listen('3000', () => {
     console.log("Server started on port 3000");
 
