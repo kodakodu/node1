@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const db = mysql.createConnection({
     host: 'localhost',
     user:'root',
-    password: 'root',
+    password: '',
     database:'conso_crf'
 });
 
@@ -20,9 +20,21 @@ db.connect((err) => {
 });
 const app = express();
 
-//insert user
+//insert user1
 app.get("/adduser1",(req,res) => {
     let user = {firstname: 'Robert', lastname : 'Dupont'}
+    let sql = "INSERT INTO users SET ?";
+    let query = db.query(sql,user, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send("User inserted");
+    });
+});
+
+
+//insert user2
+app.get("/adduser2",(req,res) => {
+    let user = {firstname: 'Yann', lastname : 'Underwood'}
     let sql = "INSERT INTO users SET ?";
     let query = db.query(sql,user, (err, result) => {
         if(err) throw err;
